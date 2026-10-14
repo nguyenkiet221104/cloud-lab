@@ -6,22 +6,18 @@ const cheerio = require('cheerio');
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Kết nối MongoDB
 const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Route kiểm tra
 app.get('/', (req, res) => {
   res.send('MERN Backend đang chạy trên Render!');
 });
 
-// API Route cho Lab 4
 app.get('/api/students', (req, res) => {
   res.json([
     { id: 1, name: 'Student 1' },
@@ -29,7 +25,6 @@ app.get('/api/students', (req, res) => {
   ]);
 });
 
-// API Render Link
 app.get('/api/render-link', async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) {
@@ -57,7 +52,6 @@ app.get('/api/render-link', async (req, res) => {
   }
 });
 
-// Cổng động từ Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
