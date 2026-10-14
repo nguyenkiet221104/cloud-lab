@@ -33,8 +33,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-const axios = require('axios');
-const cheerio = require('cheerio');
 app.get('/api/render-link', async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) {
