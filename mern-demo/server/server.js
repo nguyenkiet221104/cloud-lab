@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
+
 const app = express();
 
 // Middleware
@@ -17,7 +18,7 @@ mongoose.connect(MONGO_URI)
 
 // Route kiểm tra
 app.get('/', (req, res) => {
-  res.send('MERN Backend is running on Render!');
+  res.send('MERN Backend đang chạy trên Render!');
 });
 
 // API Route cho Lab 4
@@ -28,11 +29,7 @@ app.get('/api/students', (req, res) => {
   ]);
 });
 
-// Cổng động từ Render
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// API Render Link
 app.get('/api/render-link', async (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) {
@@ -47,8 +44,8 @@ app.get('/api/render-link', async (req, res) => {
     });
 
     const $ = cheerio.load(data);
-    const title = $('meta[property="og:title"]').attr('content') || $('title').text() || '';
-    const description = $('meta[property="og:description"]').attr('content') || $('meta[name="description"]').attr('content') || '';
+    const title = $('meta[property="og:title"]').attr('content') \vert{}\vert{} $('title').text() || '';
+    const description = $('meta[property="og:description"]').attr('content') \vert{}\vert{} $('meta[name="description"]').attr('content') || '';
     const image = $('meta[property="og:image"]').attr('content') || '';
 
     res.json({
@@ -58,4 +55,10 @@ app.get('/api/render-link', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// Cổng động từ Render
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
